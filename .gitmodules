@@ -1,7 +1,3 @@
-[submodule "dubbo-go-boot-starter"]
-	path = dubbo-go-boot-starter
-	url = git@github.com:dubbogo/dubbo-go-boot-starter.git
-	branch = master
 [submodule "dubbo-go-boot-middleware-web"]
 	path = dubbo-go-boot-middleware-web
 	url = git@github.com:dubbogo/dubbo-go-boot-middleware-web.git
