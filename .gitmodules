@@ -1,0 +1,4 @@
+[submodule "dubbo-go-starter"]
+	path = dubbo-go-starter
+	url = git@github.com:dubbogo/dubbo-go-starter.git
+	branch = master
