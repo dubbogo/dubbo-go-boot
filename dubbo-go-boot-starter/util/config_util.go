@@ -19,6 +19,9 @@ package util
 
 import (
 	"encoding/json"
+)
+
+import (
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/model"
 )
 

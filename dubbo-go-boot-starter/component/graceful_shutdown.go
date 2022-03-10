@@ -18,11 +18,17 @@
 package component
 
 import (
-	"dubbo.apache.org/dubbo-go/v3/common/logger"
-	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/config"
 	"os"
 	"os/signal"
 	"time"
+)
+
+import (
+	"dubbo.apache.org/dubbo-go/v3/common/logger"
+)
+
+import (
+	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/config"
 )
 
 func ObserveSignal(duration time.Duration, beforeShutdown func()) {

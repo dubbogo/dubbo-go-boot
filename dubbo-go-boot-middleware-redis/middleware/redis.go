@@ -18,15 +18,22 @@
 package middleware
 
 import (
-	"dubbo.apache.org/dubbo-go/v3/common/logger"
 	"fmt"
+	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-redis/util"
+)
+
+import (
+	"dubbo.apache.org/dubbo-go/v3/common/logger"
+	"github.com/go-redis/redis/v8"
+)
+
+import (
 	"github.com/dubbogo/dubbo-go-boot-starter/extend"
 	"github.com/dubbogo/dubbo-go-boot-starter/middleware"
 	startModel "github.com/dubbogo/dubbo-go-boot-starter/model"
-	"github.com/dubbogo/dubbo-go-boot-starter/util"
+	startUtil "github.com/dubbogo/dubbo-go-boot-starter/util"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-redis/component"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-redis/model"
-	"github.com/go-redis/redis/v8"
 )
 
 var (
@@ -42,7 +49,7 @@ type redisComponent struct {
 
 func (c *redisComponent) Setup(config startModel.ApplicationConfig, hooks []extend.DubboGoMiddlewareSetupHook) error {
 	rdConfig := &model.RedisConfig{}
-	err := util.ParseConfig(config, "redis", rdConfig)
+	err := startUtil.ParseConfig(config, "redis", rdConfig)
 	if err != nil {
 		logger.Warn(err)
 		logger.Warn("please add redis config")

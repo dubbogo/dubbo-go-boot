@@ -18,10 +18,16 @@
 package config
 
 import (
+	"os"
+)
+
+import (
+	"gopkg.in/yaml.v2"
+)
+
+import (
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/common"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/util"
-	"gopkg.in/yaml.v2"
-	"os"
 )
 
 func LoadConfig() (err error) {

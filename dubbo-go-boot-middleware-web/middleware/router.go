@@ -18,15 +18,21 @@
 package middleware
 
 import (
-	"dubbo.apache.org/dubbo-go/v3/common/logger"
 	"fmt"
+)
+
+import (
+	"dubbo.apache.org/dubbo-go/v3/common/logger"
+	"github.com/gin-gonic/gin"
+)
+
+import (
 	"github.com/dubbogo/dubbo-go-boot-starter/extend"
 	"github.com/dubbogo/dubbo-go-boot-starter/middleware"
 	startModel "github.com/dubbogo/dubbo-go-boot-starter/model"
 	"github.com/dubbogo/dubbo-go-boot-starter/util"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-web/component"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-web/model"
-	"github.com/gin-gonic/gin"
 )
 
 var (

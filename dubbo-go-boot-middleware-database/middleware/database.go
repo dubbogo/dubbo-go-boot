@@ -18,14 +18,14 @@
 package middleware
 
 import (
-	clogger "dubbo.apache.org/dubbo-go/v3/common/logger"
 	"fmt"
-	"github.com/dubbogo/dubbo-go-boot-starter/extend"
-	"github.com/dubbogo/dubbo-go-boot-starter/middleware"
-	startModel "github.com/dubbogo/dubbo-go-boot-starter/model"
-	"github.com/dubbogo/dubbo-go-boot-starter/util"
-	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-database/component"
-	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-database/model"
+	"log"
+	"os"
+	"time"
+)
+
+import (
+	clogger "dubbo.apache.org/dubbo-go/v3/common/logger"
 	"gorm.io/driver/clickhouse"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
@@ -33,9 +33,15 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-	"log"
-	"os"
-	"time"
+)
+
+import (
+	"github.com/dubbogo/dubbo-go-boot-starter/extend"
+	"github.com/dubbogo/dubbo-go-boot-starter/middleware"
+	startModel "github.com/dubbogo/dubbo-go-boot-starter/model"
+	"github.com/dubbogo/dubbo-go-boot-starter/util"
+	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-database/component"
+	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-database/model"
 )
 
 var (

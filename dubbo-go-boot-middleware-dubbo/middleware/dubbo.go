@@ -18,13 +18,19 @@
 package middleware
 
 import (
+	"time"
+)
+
+import (
 	"dubbo.apache.org/dubbo-go/v3/common/logger"
 	"dubbo.apache.org/dubbo-go/v3/config"
 	_ "dubbo.apache.org/dubbo-go/v3/imports"
+)
+
+import (
 	"github.com/dubbogo/dubbo-go-boot-starter/extend"
 	"github.com/dubbogo/dubbo-go-boot-starter/middleware"
 	"github.com/dubbogo/dubbo-go-boot-starter/model"
-	"time"
 )
 
 var (

@@ -18,11 +18,17 @@
 package util
 
 import (
-	"dubbo.apache.org/dubbo-go/v3/common/logger"
 	"fmt"
-	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/common"
 	"os"
 	"strings"
+)
+
+import (
+	"dubbo.apache.org/dubbo-go/v3/common/logger"
+)
+
+import (
+	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/common"
 )
 
 func GetEnvAndTrim(key string) string {

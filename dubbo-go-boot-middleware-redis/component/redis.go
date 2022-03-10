@@ -18,9 +18,15 @@
 package component
 
 import (
-	"github.com/dubbogo/dubbo-go-boot-starter/util"
-	"github.com/go-redis/redis/v8"
 	"sync"
+)
+
+import (
+	"github.com/go-redis/redis/v8"
+)
+
+import (
+	"github.com/dubbogo/dubbo-go-boot-starter/util"
 )
 
 var (

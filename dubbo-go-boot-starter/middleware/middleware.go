@@ -18,10 +18,16 @@
 package middleware
 
 import (
+	"sync"
+)
+
+import (
 	"dubbo.apache.org/dubbo-go/v3/common/logger"
+)
+
+import (
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/common"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-boot-starter/extend"
-	"sync"
 )
 
 var (
