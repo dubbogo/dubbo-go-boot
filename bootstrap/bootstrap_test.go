@@ -18,6 +18,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	_ "github.com/dubbogo/dubbo-go-boot/database/mysql"
 )
 
 func TestRun(t *testing.T) {

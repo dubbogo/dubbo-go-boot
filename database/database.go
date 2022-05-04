@@ -18,6 +18,19 @@ import (
 	"gorm.io/gorm"
 )
 
-type Database interface {
-	GetDriver(name string) (*gorm.DB, error)
+var databases = make(map[string]*gorm.DB)
+
+func SetDatabase(name string, db *gorm.DB) {
+	databases[name] = db
+}
+
+func GetDatabase(name string) *gorm.DB {
+	return databases[name]
+}
+
+func Ignore(name string) bool {
+	if _, ok := databases[name]; ok {
+		return true
+	}
+	return false
 }

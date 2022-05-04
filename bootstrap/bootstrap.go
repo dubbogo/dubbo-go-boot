@@ -50,6 +50,7 @@ func Init() error {
 		// init database
 		if database, ok := conf.(*config.Database); ok {
 			for k, v := range viper.GetStringMap(conf.Prefix()) {
+
 				if data, err = json.Marshal(v); err != nil {
 					return err
 				}
