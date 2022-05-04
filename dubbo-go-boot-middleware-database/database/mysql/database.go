@@ -62,19 +62,14 @@ func newMysqlDiver(config startModel.ApplicationConfig) database.Database {
 		return nil
 	}
 
-	dialect := dbConfig.Dialect
 	host := dbConfig.Host
 	port := dbConfig.Port
 	configDatabase := dbConfig.Database
 	username := dbConfig.Username
 	password := dbConfig.Password
-	var dialector gorm.Dialector
 
-	if dialect == "mysql" {
-		dialector = mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-			username, password, host, port, configDatabase))
-	}
-
+	dialector := mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+		username, password, host, port, configDatabase))
 	if dialector == nil {
 		return nil
 	}
