@@ -12,12 +12,34 @@
  * limitations under the License.
  */
 
-package database
+package bootstrap
 
 import (
-	"gorm.io/gorm"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
+
+	"github.com/dubbogo/dubbo-go-boot/config"
 )
 
-type Database interface {
-	GetDriver(name string) (*gorm.DB, error)
+func Run(conf *Option) error {
+	viper.SetConfigName(conf.name)
+	viper.SetConfigType(conf.suffix)
+	viper.AddConfigPath(conf.path)
+
+	if err := viper.ReadInConfig(); err != nil {
+		return errors.WithStack(err)
+	}
+	return Init()
+}
+
+func Init() error {
+	for _, conf := range config.GetConfigs() {
+		if err := viper.UnmarshalKey(conf.Prefix(), conf); err != nil {
+			return err
+		}
+		if err := conf.Init(); err != nil {
+			return err
+		}
+	}
+	return nil
 }

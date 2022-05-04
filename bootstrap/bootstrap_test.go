@@ -12,11 +12,15 @@
  * limitations under the License.
  */
 
-package constant
+package bootstrap
 
-const (
-	// Version dubbo-go-boot version
-	Version = "1.0.0"
-	// Name module name
-	Name = "dubbo-go-boot"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
+
+func TestRun(t *testing.T) {
+	err := Run(New().SetPath("../config"))
+	assert.NoError(t, err)
+}
