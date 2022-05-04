@@ -17,18 +17,10 @@
 
 package database
 
-type DatabaseSetupHook struct {
-	hook func()
-}
+import (
+	"gorm.io/gorm"
+)
 
-func NewDatabaseSetupHook(hook func()) *DatabaseSetupHook {
-	return &DatabaseSetupHook{
-		hook: hook,
-	}
-}
-
-func (m *DatabaseSetupHook) Hook() {
-	if m.hook != nil {
-		m.hook()
-	}
+type Database interface {
+	GetDriver(name string) (*gorm.DB, error)
 }

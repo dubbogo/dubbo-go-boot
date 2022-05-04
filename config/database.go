@@ -22,9 +22,6 @@ type Database struct {
 
 	// database connect timeout
 	Timeout string `default:"5s" json:"timeout"`
-
-	// 数据库名称
-	Database string `json:"database"`
 }
 
 func (Database) Prefix() string {
@@ -35,6 +32,6 @@ func (d *Database) toURL() (*core.URL, error) {
 	address := fmt.Sprintf("%s://%s", d.Driver, d.Url)
 	return core.NewURL(address,
 		core.WithParamsValue(constant.DatabaseTimeoutKey, d.Timeout),
-		core.WithParamsValue(constant.DatabaseKey, d.Database),
+		core.WithParamsValue(constant.DatabaseKey, d.Driver),
 	)
 }
