@@ -40,7 +40,6 @@ import (
 	"github.com/dubbogo/dubbo-go-boot-starter/middleware"
 	startModel "github.com/dubbogo/dubbo-go-boot-starter/model"
 	"github.com/dubbogo/dubbo-go-boot-starter/util"
-	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-database/component"
 	"github.com/dubbogo/dubbo-go-boot/dubbo-go-middleware-database/model"
 )
 
@@ -128,6 +127,5 @@ func (c *databaseComponent) IsAsync() bool {
 }
 
 func (c *databaseComponent) Shutdown() {
-	component.DatabaseComponent = nil
 	db = nil
 }
