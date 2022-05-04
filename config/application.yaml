@@ -1,6 +1,6 @@
 database:
   hangzhou:
-    driver: mongodb
+    driver: mysql
     url: 192.168.56.100:27017
     timeout: 3s
     database: ghidorah

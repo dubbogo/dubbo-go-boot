@@ -15,19 +15,17 @@
 package mysql
 
 import (
+	"gorm.io/gorm"
+
 	"github.com/dubbogo/dubbo-go-boot/core"
 	"github.com/dubbogo/dubbo-go-boot/core/extension"
-	"github.com/dubbogo/dubbo-go-boot/database"
 )
 
 func init() {
 	extension.SetDatabase("mysql", newDriver)
 }
 
-type Driver struct {
-}
-
-func newDriver(config *core.URL) (database.Database, error) {
+func newDriver(config *core.URL) (*gorm.DB, error) {
 	//dbConfig := &model.DatabaseConfig{}
 	//err := util.ParseConfig(config, "database", dbConfig)
 	//if err != nil || dbConfig == nil {

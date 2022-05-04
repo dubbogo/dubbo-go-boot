@@ -37,15 +37,6 @@ type Logger struct {
 	Level string `default:"info" json:"level"`
 }
 
-func (l *Logger) toURL() *core.URL {
-	address := fmt.Sprintf("%s://%s", l.Driver, l.Level)
-	u, _ := core.NewURL(address,
-		core.WithParamsValue(constant.LoggerLevelKey, l.Level),
-		core.WithParamsValue(constant.LoggerDriverKey, l.Driver),
-	)
-	return u
-}
-
 func (l *Logger) Prefix() string {
 	return "logger"
 }
@@ -63,4 +54,17 @@ func (l *Logger) Init() error {
 	}
 	logger.SetLog(log)
 	return nil
+}
+
+func (l *Logger) Order() int {
+	return 1
+}
+
+func (l *Logger) toURL() *core.URL {
+	address := fmt.Sprintf("%s://%s", l.Driver, l.Level)
+	u, _ := core.NewURL(address,
+		core.WithParamsValue(constant.LoggerLevelKey, l.Level),
+		core.WithParamsValue(constant.LoggerDriverKey, l.Driver),
+	)
+	return u
 }

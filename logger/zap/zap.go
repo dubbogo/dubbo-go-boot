@@ -15,6 +15,7 @@
 package zap
 
 import (
+	"log"
 	"os"
 
 	"go.uber.org/zap"
@@ -27,6 +28,11 @@ import (
 )
 
 func init() {
+	if lg, err := getLogger("info"); err != nil {
+		log.Fatal(err)
+	} else {
+		logger.SetLog(lg)
+	}
 	extension.SetLogger("zap", newZapLogger)
 }
 

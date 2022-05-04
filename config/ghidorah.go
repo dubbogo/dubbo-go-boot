@@ -20,6 +20,9 @@ type Config interface {
 
 	// Init init config
 	Init() error
+
+	// Order load order
+	Order() int
 }
 
 var configs = make(map[string]Config)
@@ -29,6 +32,21 @@ func SetConfig(name string, config Config) {
 }
 
 func GetConfigs() map[string]Config {
+	//keys := make([]string, len(configs))
+	//i := 0
+	//for key := range configs {
+	//	keys[i] = key
+	//	i++
+	//}
+	//sort.Slice(keys, func(i, j int) bool {
+	//	return configs[keys[i]].Order() > configs[keys[j]].Order()
+	//})
+	//
+	//l := list.New()
+	//for _, key := range keys {
+	//	l.PushFront(configs[key])
+	//}
+
 	return configs
 }
 
@@ -38,16 +56,4 @@ type Ghidorah struct {
 
 	// 日志配置
 	Logger *Logger `json:"logger"`
-}
-
-func (*Ghidorah) Prefix() string {
-	return "ghidorah"
-}
-
-func (g *Ghidorah) Init() error {
-	//var err error
-	//if err = g.Logger.Init(); err != nil {
-	//	return err
-	//}
-	return nil
 }

@@ -15,29 +15,57 @@
 package bootstrap
 
 import (
-	"github.com/pkg/errors"
+	"encoding/json"
+
 	"github.com/spf13/viper"
 
 	"github.com/dubbogo/dubbo-go-boot/config"
+	"github.com/dubbogo/dubbo-go-boot/core/constant"
+	"github.com/dubbogo/dubbo-go-boot/logger"
+	_ "github.com/dubbogo/dubbo-go-boot/logger/zap"
 )
 
 func Run(conf *Option) error {
+	logger.Infof("dubbo-go boot version %s", constant.Version)
+
 	viper.SetConfigName(conf.name)
 	viper.SetConfigType(conf.suffix)
 	viper.AddConfigPath(conf.path)
 
+	logger.Infof("start load config %s", conf.GetConfig())
 	if err := viper.ReadInConfig(); err != nil {
-		return errors.WithStack(err)
+		logger.Errorf("read config err=%v", err)
+		return err
 	}
 	return Init()
 }
 
 func Init() error {
+	var (
+		err  error
+		data []byte
+	)
+
 	for _, conf := range config.GetConfigs() {
-		if err := viper.UnmarshalKey(conf.Prefix(), conf); err != nil {
+		// init database
+		if database, ok := conf.(*config.Database); ok {
+			for k, v := range viper.GetStringMap(conf.Prefix()) {
+				if data, err = json.Marshal(v); err != nil {
+					return err
+				}
+				if err = json.Unmarshal(data, database); err != nil {
+					return err
+				}
+				if err = database.InitDatabase(k); err != nil {
+					return err
+				}
+			}
+			continue
+		}
+		if err = viper.UnmarshalKey(conf.Prefix(), conf); err != nil {
 			return err
 		}
-		if err := conf.Init(); err != nil {
+		if err = conf.Init(); err != nil {
 			return err
 		}
 	}

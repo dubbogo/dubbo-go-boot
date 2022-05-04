@@ -14,15 +14,7 @@
 
 package bootstrap
 
-//type optionFunc func(*loaderConf)
-//
-//func (fn optionFunc) apply(vc *loaderConf) {
-//	fn(vc)
-//}
-
-//type Option interface {
-//	apply(vc *loaderConf)
-//}
+import "strings"
 
 type Option struct {
 	// loaderConf file extension default yaml
@@ -58,22 +50,6 @@ func (o *Option) SetPath(path string) *Option {
 	return o
 }
 
-//
-//// WithPath set load config path
-//func WithPath(path string) Option {
-//	return optionFunc(func(conf *loaderConf) {
-//		conf.path = path
-//	})
-//}
-//
-//func WithName(name string) Option {
-//	return optionFunc(func(conf *loaderConf) {
-//		conf.name = name
-//	})
-//}
-//
-//func WithSuffix(suffix string) Option {
-//	return optionFunc(func(conf *loaderConf) {
-//		conf.suffix = suffix
-//	})
-//}
+func (o *Option) GetConfig() string {
+	return strings.Join([]string{o.path, o.name}, "/") + "." + o.suffix
+}

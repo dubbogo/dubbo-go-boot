@@ -17,8 +17,11 @@ package config
 import (
 	"fmt"
 
+	"gorm.io/gorm"
+
 	"github.com/dubbogo/dubbo-go-boot/core"
 	"github.com/dubbogo/dubbo-go-boot/core/constant"
+	"github.com/dubbogo/dubbo-go-boot/core/extension"
 )
 
 func init() {
@@ -42,6 +45,8 @@ type Database struct {
 	Timeout string `default:"5s" json:"timeout"`
 }
 
+var databases = make(map[string]*gorm.DB)
+
 func (Database) Prefix() string {
 	return "database"
 }
@@ -50,6 +55,30 @@ func (d *Database) Init() error {
 	fmt.Println(d.Username)
 	fmt.Println(d.Driver)
 	return nil
+}
+
+func (d *Database) InitDatabase(name string) error {
+	var (
+		err      error
+		url      *core.URL
+		database *gorm.DB
+	)
+	if _, ok := databases[name]; ok {
+		return nil
+	}
+
+	if url, err = d.toURL(); err != nil {
+		return err
+	}
+	if database, err = extension.GetDatabase(d.Driver, url); err != nil {
+		return err
+	}
+	databases[name] = database
+	return nil
+}
+
+func (d *Database) Order() int {
+	return 2
 }
 
 func (d *Database) toURL() (*core.URL, error) {
