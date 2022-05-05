@@ -25,19 +25,31 @@ import (
 	_ "github.com/dubbogo/dubbo-go-boot/logger/zap"
 )
 
-func Run(conf *Option) error {
+func Run(opts ...Option) error {
 	logger.Infof("dubbo-go boot version %s", constant.Version)
+	conf := defaultConfig()
+	for _, opt := range opts {
+		opt.apply(conf)
+	}
+	if err := loadConfig(conf); err != nil {
+		logger.Errorf("read config err=%v", err)
+		return err
+	}
+	return Init()
+}
+
+func loadConfig(conf *loaderConf) error {
+	logger.Infof("start load config %s", conf.getConfigPath())
 
 	viper.SetConfigName(conf.name)
 	viper.SetConfigType(conf.suffix)
 	viper.AddConfigPath(conf.path)
 
-	logger.Infof("start load config %s", conf.GetConfig())
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Errorf("read config err=%v", err)
 		return err
 	}
-	return Init()
+	return nil
 }
 
 func Init() error {
@@ -45,7 +57,6 @@ func Init() error {
 		err  error
 		data []byte
 	)
-
 	for _, conf := range config.GetConfigs() {
 		// init database
 		if database, ok := conf.(*config.Database); ok {

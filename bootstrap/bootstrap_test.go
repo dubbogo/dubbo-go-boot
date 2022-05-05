@@ -23,6 +23,6 @@ import (
 )
 
 func TestRun(t *testing.T) {
-	err := Run(New().SetPath("../config"))
+	err := Run(WithPath("../config"))
 	assert.NoError(t, err)
 }

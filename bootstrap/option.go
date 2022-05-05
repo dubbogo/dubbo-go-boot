@@ -16,7 +16,17 @@ package bootstrap
 
 import "strings"
 
-type Option struct {
+type optionFunc func(*loaderConf)
+
+func (fn optionFunc) apply(vc *loaderConf) {
+	fn(vc)
+}
+
+type Option interface {
+	apply(vc *loaderConf)
+}
+
+type loaderConf struct {
 	// loaderConf file extension default yaml
 	suffix string
 
@@ -27,29 +37,33 @@ type Option struct {
 	name string
 }
 
-func New() *Option {
-	return &Option{
+func defaultConfig() *loaderConf {
+	return &loaderConf{
 		suffix: "yaml",
 		path:   "./configs",
 		name:   "application",
 	}
 }
 
-func (o *Option) SetName(name string) *Option {
-	o.name = name
-	return o
+func (lc *loaderConf) getConfigPath() string {
+	return strings.Join([]string{lc.path, lc.name}, "/") + "." + lc.suffix
 }
 
-func (o *Option) SetSuffix(suffix string) *Option {
-	o.suffix = suffix
-	return o
+// WithPath set load config path
+func WithPath(path string) Option {
+	return optionFunc(func(conf *loaderConf) {
+		conf.path = path
+	})
 }
 
-func (o *Option) SetPath(path string) *Option {
-	o.path = path
-	return o
+func WithName(name string) Option {
+	return optionFunc(func(conf *loaderConf) {
+		conf.name = name
+	})
 }
 
-func (o *Option) GetConfig() string {
-	return strings.Join([]string{o.path, o.name}, "/") + "." + o.suffix
+func WithSuffix(suffix string) Option {
+	return optionFunc(func(conf *loaderConf) {
+		conf.suffix = suffix
+	})
 }

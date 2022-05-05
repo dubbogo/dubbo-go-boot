@@ -22,12 +22,20 @@ import (
 
 func TestNew(t *testing.T) {
 
-	opts := New().
-		SetPath("./conf").
-		SetName("dubbo").
-		SetSuffix("ini")
+	conf := defaultConfig()
+	WithPath("")
 
-	assert.Equal(t, opts.name, "dubbo")
-	assert.Equal(t, opts.suffix, "ini")
-	assert.Equal(t, opts.path, "./conf")
+	opts := []Option{
+		WithPath("./conf"),
+		WithName("dubbo"),
+		WithSuffix("ini"),
+	}
+
+	for _, opt := range opts {
+		opt.apply(conf)
+	}
+
+	assert.Equal(t, conf.name, "dubbo")
+	assert.Equal(t, conf.suffix, "ini")
+	assert.Equal(t, conf.path, "./conf")
 }
