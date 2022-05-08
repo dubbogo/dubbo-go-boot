@@ -74,7 +74,7 @@ func (s *Starter) Start() (err error) {
 	if err != nil {
 		return err
 	}
-	component.ObserveSignal(DefaultSurvivalTimeout, func() {
+	component.ObserveSignal(s.survivalTimeout, func() {
 		middleware.Shutdown()
 	})
 	return nil
