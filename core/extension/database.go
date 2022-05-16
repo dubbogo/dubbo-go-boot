@@ -16,14 +16,14 @@ package extension
 
 import (
 	"github.com/pkg/errors"
-	"gorm.io/gorm"
 
 	"github.com/dubbogo/dubbo-go-boot/core"
+	"github.com/dubbogo/dubbo-go-boot/database"
 )
 
-var databases = make(map[string]func(config *core.URL) (*gorm.DB, error))
+var databases = make(map[string]func(config *core.URL) (*database.Database, error))
 
-func GetDatabase(driver string, config *core.URL) (*gorm.DB, error) {
+func GetDatabase(driver string, config *core.URL) (*database.Database, error) {
 	if databases[driver] == nil {
 		return nil, errors.Errorf("database for %s driver does not exist. "+
 			"please make sure that you have imported the package "+
@@ -33,6 +33,6 @@ func GetDatabase(driver string, config *core.URL) (*gorm.DB, error) {
 	return databases[driver](config)
 }
 
-func SetDatabase(driver string, f func(config *core.URL) (*gorm.DB, error)) {
+func SetDatabase(driver string, f func(config *core.URL) (*database.Database, error)) {
 	databases[driver] = f
 }

@@ -14,6 +14,8 @@
 
 package config
 
+import "sort"
+
 type Config interface {
 	// Prefix config prefix
 	Prefix() string
@@ -31,23 +33,15 @@ func SetConfig(name string, config Config) {
 	configs[name] = config
 }
 
-func GetConfigs() map[string]Config {
-	//keys := make([]string, len(configs))
-	//i := 0
-	//for key := range configs {
-	//	keys[i] = key
-	//	i++
-	//}
-	//sort.Slice(keys, func(i, j int) bool {
-	//	return configs[keys[i]].Order() > configs[keys[j]].Order()
-	//})
-	//
-	//l := list.New()
-	//for _, key := range keys {
-	//	l.PushFront(configs[key])
-	//}
-
-	return configs
+func GetConfigs() []Config {
+	var cs []Config
+	for _, config := range configs {
+		cs = append(cs, config)
+	}
+	sort.Slice(cs, func(i, j int) bool {
+		return cs[i].Order() < cs[j].Order()
+	})
+	return cs
 }
 
 type Ghidorah struct {

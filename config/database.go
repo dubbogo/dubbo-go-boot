@@ -17,8 +17,6 @@ package config
 import (
 	"fmt"
 
-	"gorm.io/gorm"
-
 	"github.com/dubbogo/dubbo-go-boot/core"
 	"github.com/dubbogo/dubbo-go-boot/core/constant"
 	"github.com/dubbogo/dubbo-go-boot/core/extension"
@@ -60,7 +58,7 @@ func (d *Database) InitDatabase(name string) error {
 	var (
 		err error
 		url *core.URL
-		db  *gorm.DB
+		db  *database.Database
 	)
 	if database.Ignore(name) {
 		return nil

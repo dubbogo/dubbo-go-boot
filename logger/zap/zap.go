@@ -15,7 +15,6 @@
 package zap
 
 import (
-	"log"
 	"os"
 
 	"go.uber.org/zap"
@@ -28,11 +27,6 @@ import (
 )
 
 func init() {
-	if lg, err := getLogger("info"); err != nil {
-		log.Fatal(err)
-	} else {
-		logger.SetLog(lg)
-	}
 	extension.SetLogger("zap", newZapLogger)
 }
 
@@ -42,7 +36,7 @@ type Logger struct {
 
 func newZapLogger(conf *core.URL) (log logger.Logger, err error) {
 	level := conf.GetParam(constant.LoggerLevelKey, "info")
-	if log, err = getLogger(level); err != nil {
+	if log, err = GetLogger(level); err != nil {
 		return nil, err
 	}
 	return log, nil
@@ -97,7 +91,7 @@ func getEncoder() zapcore.Encoder {
 	return encoder
 }
 
-func getLogger(level string) (*zap.SugaredLogger, error) {
+func GetLogger(level string) (*zap.SugaredLogger, error) {
 	var (
 		lv  zapcore.Level
 		err error

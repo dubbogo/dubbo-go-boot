@@ -22,8 +22,11 @@ import (
 	"github.com/dubbogo/dubbo-go-boot/config"
 	"github.com/dubbogo/dubbo-go-boot/core/constant"
 	"github.com/dubbogo/dubbo-go-boot/logger"
-	_ "github.com/dubbogo/dubbo-go-boot/logger/zap"
 )
+
+func init() {
+	logger.SetDefaultLog()
+}
 
 func Run(opts ...Option) error {
 	logger.Infof("dubbo-go boot version %s", constant.Version)

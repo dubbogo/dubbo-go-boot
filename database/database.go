@@ -18,13 +18,21 @@ import (
 	"gorm.io/gorm"
 )
 
-var databases = make(map[string]*gorm.DB)
+type Database struct {
+	driver interface{}
+}
 
-func SetDatabase(name string, db *gorm.DB) {
+func (db *Database) GetMysql() *gorm.DB {
+	return db.driver.(*gorm.DB)
+}
+
+var databases = make(map[string]*Database)
+
+func SetDatabase(name string, db *Database) {
 	databases[name] = db
 }
 
-func GetDatabase(name string) *gorm.DB {
+func GetDatabase(name string) *Database {
 	return databases[name]
 }
 
