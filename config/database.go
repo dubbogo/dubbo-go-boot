@@ -21,6 +21,7 @@ import (
 	"github.com/dubbogo/dubbo-go-boot/core/constant"
 	"github.com/dubbogo/dubbo-go-boot/core/extension"
 	"github.com/dubbogo/dubbo-go-boot/database"
+	"github.com/dubbogo/dubbo-go-boot/logger"
 )
 
 func init() {
@@ -55,6 +56,7 @@ func (d *Database) Init() error {
 }
 
 func (d *Database) InitDatabase(name string) error {
+	logger.Infof("database %s init", name)
 	var (
 		err error
 		url *core.URL

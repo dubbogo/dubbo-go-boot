@@ -19,8 +19,11 @@ package config
 
 import (
 	"github.com/creasty/defaults"
-	"github.com/pkg/errors"
 )
+
+func init() {
+	SetConfig("application", &Application{})
+}
 
 type Application struct {
 	Organization string `default:"dubbo-go-boot" yaml:"organization" json:"organization"`
@@ -38,9 +41,6 @@ func (Application) Prefix() string {
 
 // Init  application config and set default value
 func (a *Application) Init() error {
-	if a == nil {
-		return errors.New("application is null")
-	}
 	var (
 		err error
 	)
@@ -49,4 +49,8 @@ func (a *Application) Init() error {
 		return err
 	}
 	return nil
+}
+
+func (a *Application) Order() int {
+	return 2
 }

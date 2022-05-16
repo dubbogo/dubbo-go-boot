@@ -43,11 +43,3 @@ func GetConfigs() []Config {
 	})
 	return cs
 }
-
-type Ghidorah struct {
-	// 数据库配置
-	Database map[string]*Database `json:"database"`
-
-	// 日志配置
-	Logger *Logger `json:"logger"`
-}

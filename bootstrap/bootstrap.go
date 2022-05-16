@@ -22,10 +22,12 @@ import (
 	"github.com/dubbogo/dubbo-go-boot/config"
 	"github.com/dubbogo/dubbo-go-boot/core/constant"
 	"github.com/dubbogo/dubbo-go-boot/logger"
+	"github.com/dubbogo/dubbo-go-boot/logger/zap"
 )
 
 func init() {
-	logger.SetDefaultLog()
+	log, _ := zap.GetLogger("info")
+	logger.SetLog(log)
 }
 
 func Run(opts ...Option) error {

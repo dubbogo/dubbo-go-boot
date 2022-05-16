@@ -6,4 +6,4 @@ database:
     database: ghidorah
 logger:
   driver: zap
-  level: debug
+  level: info

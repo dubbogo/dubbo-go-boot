@@ -15,11 +15,6 @@
 package mysql
 
 import (
-	"fmt"
-
-	"gorm.io/gorm"
-	"gorm.io/gorm/schema"
-
 	"github.com/dubbogo/dubbo-go-boot/core"
 	"github.com/dubbogo/dubbo-go-boot/core/extension"
 	"github.com/dubbogo/dubbo-go-boot/database"
@@ -45,20 +40,20 @@ func newDriver(config *core.URL) (*database.Database, error) {
 	//password := dbConfig.Password
 	//
 
-	dialector := mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-		username, password, host, port, configDatabase))
-	if dialector == nil {
-		return nil
-	}
-	instance, err := gorm.Open(dialector, &gorm.Config{
-		NamingStrategy: schema.NamingStrategy{
-			SingularTable: true,
-		},
-		Logger: databaseLogger(),
-	})
-	if err != nil {
-		return nil
-	}
+	//dialector := mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+	//	username, password, host, port, configDatabase))
+	//if dialector == nil {
+	//	return nil
+	//}
+	//instance, err := gorm.Open(dialector, &gorm.Config{
+	//	NamingStrategy: schema.NamingStrategy{
+	//		SingularTable: true,
+	//	},
+	//	Logger: databaseLogger(),
+	//})
+	//if err != nil {
+	//	return nil
+	//}
 
 	return nil, nil
 }

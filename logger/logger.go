@@ -14,8 +14,6 @@
 
 package logger
 
-import "github.com/dubbogo/dubbo-go-boot/logger/zap"
-
 type Logger interface {
 	Debug(args ...interface{})
 
@@ -38,11 +36,6 @@ var logger Logger
 
 func SetLog(log Logger) {
 	logger = log
-}
-
-func SetDefaultLog() {
-	log, _ := zap.GetLogger("info")
-	SetLog(log)
 }
 
 // Info is info level
