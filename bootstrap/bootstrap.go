@@ -16,6 +16,7 @@ package bootstrap
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/spf13/viper"
 
@@ -31,6 +32,9 @@ func init() {
 }
 
 func Run(opts ...Option) error {
+	fmt.Println(constant.Banner)
+	fmt.Printf("    :: %s ::                               (%s) \n", constant.Name, constant.Version)
+	fmt.Println()
 	logger.Infof("dubbo-go boot version %s", constant.Version)
 	conf := defaultConfig()
 	for _, opt := range opts {
