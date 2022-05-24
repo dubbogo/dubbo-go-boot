@@ -22,7 +22,11 @@ type Database struct {
 	driver interface{}
 }
 
-func (db *Database) GetMysql() *gorm.DB {
+func (db *Database) SetDriver(driver *gorm.DB) {
+	db.driver = driver
+}
+
+func (db *Database) GetDataBase() *gorm.DB {
 	return db.driver.(*gorm.DB)
 }
 
