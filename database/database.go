@@ -26,7 +26,7 @@ func (db *Database) SetDriver(driver *gorm.DB) {
 	db.driver = driver
 }
 
-func (db *Database) GetDataBase() *gorm.DB {
+func (db *Database) GetDriver() *gorm.DB {
 	return db.driver.(*gorm.DB)
 }
 
