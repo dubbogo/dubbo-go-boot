@@ -15,45 +15,44 @@
 package mysql
 
 import (
+	"fmt"
 	"github.com/dubbogo/dubbo-go-boot/core"
 	"github.com/dubbogo/dubbo-go-boot/core/extension"
 	"github.com/dubbogo/dubbo-go-boot/database"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 func init() {
-	extension.SetDatabase("mysql", newDriver)
+	extension.SetDatabase("mysql", newMysqlDriver)
 }
 
-func newDriver(config *core.URL) (*database.Database, error) {
-	//dbConfig := &model.DatabaseConfig{}
-	//err := util.ParseConfig(config, "database", dbConfig)
-	//if err != nil || dbConfig == nil {
-	//	clogger.Warn(err)
-	//	clogger.Warn("please add database config")
-	//	return nil
-	//}
-	//
-	//host := dbConfig.Host
-	//port := dbConfig.Port
-	//configDatabase := dbConfig.Database
-	//username := dbConfig.Username
-	//password := dbConfig.Password
-	//
+func newMysqlDriver(config *core.URL) (*database.Database, error) {
+	host := config.Ip
+	port := config.Port
+	path := config.Path
+	username := config.Username
+	password := config.Password
 
-	//dialector := mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-	//	username, password, host, port, configDatabase))
-	//if dialector == nil {
-	//	return nil
-	//}
-	//instance, err := gorm.Open(dialector, &gorm.Config{
-	//	NamingStrategy: schema.NamingStrategy{
-	//		SingularTable: true,
-	//	},
-	//	Logger: databaseLogger(),
-	//})
-	//if err != nil {
-	//	return nil
-	//}
+	dialector := mysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+		username, password, host, port, path))
+	if dialector == nil {
+		return nil, nil
+	}
 
-	return nil, nil
+	instance, err := gorm.Open(dialector, &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+		},
+	})
+	if err != nil {
+		return nil, nil
+	}
+
+	d := database.Database{}
+	d.SetDriver(instance)
+	database.SetDatabase("mysql", &d)
+
+	return &d, nil
 }
