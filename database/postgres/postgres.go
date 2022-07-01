@@ -12,33 +12,33 @@
  * limitations under the License.
  */
 
-package mysql
+package postgres
 
 import (
 	"fmt"
 	"github.com/dubbogo/dubbo-go-boot/core"
 	"github.com/dubbogo/dubbo-go-boot/core/extension"
 	"github.com/dubbogo/dubbo-go-boot/database"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
 )
 
 func init() {
-	extension.SetDatabase("mysql", newMysqlDriver)
+	extension.SetDatabase("postgres", newPostgresDiver)
 }
 
-func newMysqlDriver(config *core.URL) (*database.Database, error) {
+func newPostgresDiver(config *core.URL) (*database.Database, error) {
 	host := config.Ip
 	port := config.Port
 	path := config.Path
 	username := config.Username
 	password := config.Password
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	dsn := fmt.Sprintf("user=%s password=%s host=%s port=%s DB.name=%s sslmode=disable TimeZone=Asia/Shanghai",
 		username, password, host, port, path)
 
-	instance, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+	instance, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},
@@ -49,7 +49,7 @@ func newMysqlDriver(config *core.URL) (*database.Database, error) {
 
 	d := database.Database{}
 	d.SetDriver(instance)
-	database.SetDatabase("mysql", &d)
+	database.SetDatabase("postgres", &d)
 
 	return &d, nil
 }
